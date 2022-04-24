@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import statistics
 
 data_piece = "Low"
+padding = 10
 
 plt.rcParams["figure.figsize"] = [7.00, 3.50]
 plt.rcParams["figure.autolayout"] = True
@@ -74,7 +75,9 @@ for i in range(0, len(df.Date), quarter):
 
     data.append([_n, _mean, _sd, _min, _median, _max])
 
-axs.table(rowLabels=quarters, colLabels=table_cols, cellText=data, loc="center")
+t = axs.table(rowLabels=quarters, colLabels=table_cols, cellText=data, loc="center", colWidths=[0.1 for x in table_cols], cellLoc="center", colLoc="center", rowLoc="center")
+
+# t.auto_set_column_width(col=list(range(len(table_cols))))
 
 # Add title
 
