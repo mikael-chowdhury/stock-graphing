@@ -18,7 +18,7 @@ for point in points:
 
 # Add title
 
-plt.title("Plot without limiting axes")
+plt.title("2 lines on a graph")
 
 # Add labels
 

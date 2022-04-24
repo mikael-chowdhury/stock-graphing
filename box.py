@@ -50,7 +50,7 @@ plt.yticks(steps, _labels)
 
 # Add title
 
-plt.title("Plot without limiting axes")
+plt.title("box plot with y ticks")
 
 # Add labels
 
