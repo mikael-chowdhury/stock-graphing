@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import statistics
 
 data_piece = "Low"
-padding = 10
 
 plt.rcParams["figure.figsize"] = [7.00, 3.50]
 plt.rcParams["figure.autolayout"] = True
@@ -58,6 +57,7 @@ for p in points:
     dfs.append(getattr(df, p))
 
 data = []
+raw = []
 
 quarter = int(len(df.Date) / 4)
 
@@ -73,15 +73,22 @@ for i in range(0, len(df.Date), quarter):
     _max = max(d)
     _sd = round(np.std(d), 2)
 
-    data.append([_n, _mean, _sd, _min, _median, _max])
+    data.append(sum(d) / sum(df[data_piece]) * 360)
+    raw.append(sum(d))
 
-t = axs.table(rowLabels=quarters, colLabels=table_cols, cellText=data, loc="center", colWidths=[0.1 for x in table_cols], cellLoc="center", colLoc="center", rowLoc="center")
+def make_autopct(values):
+    def my_autopct(pct):
+        total = sum(values)
+        val = int(round(pct*total/100.0))
+        return '{p:.2f}%  ({v:d})'.format(p=pct,v=val)
+    return my_autopct
 
-# t.auto_set_column_width(col=list(range(len(table_cols))))
+axs.pie(data, labels=quarters, autopct=make_autopct(raw), shadow=True, startangle=90)
+axs.axis("equal")
 
 # Add title
 
-plt.title("Stocks summary table")
+plt.title("Stocks pie chart")
 
 # Display
 
